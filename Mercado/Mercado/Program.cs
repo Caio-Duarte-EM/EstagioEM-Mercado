@@ -24,11 +24,6 @@ while (true)
     }
     if (OpcaoMenu == "3")
     {
-        Fruta.MostrarListaFrutas(FrutasDisponiveis);
-        continue;
-    }
-    if (OpcaoMenu == "4")
-    {
         Console.WriteLine("Deseja comparar frutas com base\n" +
             "(1) Na cor\n" +
             "(2) No preço");
@@ -47,7 +42,7 @@ while (true)
         }
         continue;
     }
-    if (OpcaoMenu == "5")
+    if (OpcaoMenu == "4")
     {
         Console.WriteLine("Ordenar frutas por:\n" +
             "(1) - Nome\n" +
@@ -75,7 +70,7 @@ while (true)
         }
         continue;
     }
-    if (OpcaoMenu == "6")
+    if (OpcaoMenu == "5")
     {
         Console.WriteLine("Consultar frutas por: \n" +
             "(1) - Cor\n" +
@@ -95,16 +90,27 @@ while (true)
         }
         continue;
     }
-    if (OpcaoMenu == "7")
+    if (OpcaoMenu == "6")
     {
         AdicionarAlimentoNaLista(AlimentosDisponiveis);
         continue;
     }
+    if (OpcaoMenu == "7")
+    {
+        RemoverAlimentosDaLista(AlimentosDisponiveis);
+        continue;
+    }
     if (OpcaoMenu == "8")
+    {
+        MostrarListas(FrutasDisponiveis, AlimentosDisponiveis);
+        continue;
+    }
+    if (OpcaoMenu == "9")
     {
         Console.WriteLine($"R$ {Alimento.CalcularPrecoTotal(AlimentosDisponiveis)} até agora.");
         continue;
     }
+
     Console.WriteLine("Opção inválida, tente novamente!");
 }
 
@@ -118,6 +124,7 @@ foreach (Alimento alimento in AlimentosDisponiveis){
     }
     Console.WriteLine("");
 }
+
 Console.WriteLine($"Programa encerrado com um total de {AlimentosDisponiveis.Count} alimentos sendo {FrutasDisponiveis.Count} frutas");
 Console.WriteLine($"Preço total da compra: {Alimento.CalcularPrecoTotal(AlimentosDisponiveis):N2}");
 Console.WriteLine("Deseja emitir nota fiscal?\n" +
@@ -136,12 +143,13 @@ static string? MostrarMenuOpcoes()
     Console.WriteLine("\nO que deseja fazer?\n" +
             "(1) - ADICIONAR FRUTA\n" +
             "(2) - REMOVER FRUTA\n" +
-            "(3) - VER LISTA DE FRUTAS DISPONIVEIS\n" +
-            "(4) - COMPARAR FRUTAS\n" +
-            "(5) - ORDENAR LISTA DE FRUTAS\n" +
-            "(6) - FILTRAR FRUTAS\n" +
-            "(7) - ADICIONAR ALIMENTO\n" +
-            "(8) - CALCULAR VALOR DA COMPRA\n" +
+            "(3) - COMPARAR FRUTAS\n" +
+            "(4) - ORDENAR LISTA DE FRUTAS\n" +
+            "(5) - FILTRAR FRUTAS\n" +
+            "(6) - ADICIONAR ALIMENTO\n" +
+            "(7) - REMOVER ALIMENTO\n" +
+            "(8) - MOSTRAR LISTAS\n" +
+            "(9) - CALCULAR VALOR DA COMPRA\n" +
             "(999) - SAIR");
     string? OpcaoMenu = Console.ReadLine();
     Console.Clear();
@@ -348,6 +356,7 @@ static void AdicionarAlimentoNaLista(List<Alimento> listaDeAlimentos)
                 Preco = precoAlimento
             };
             listaDeAlimentos.Add(novoAlimento);
+            Console.WriteLine($"{nomeAlimento} adicionado com sucesso à lista");
         }
         else
         {
@@ -362,8 +371,61 @@ static void EmitirNotaFiscal(List<Alimento> listaDeAlimentos)
             "--------------------------");
     foreach (var alimento in listaDeAlimentos)
     {
-        Console.Write($"\n{alimento.Nome,-12} | {alimento.Preco,5:N2}");
+        Console.Write($"\n{alimento.Nome,-12} | {alimento.Preco,6:N2}");
     }
     Console.WriteLine("\n--------------------------\n" +
-        $"TOTAL:       | {Alimento.CalcularPrecoTotal(listaDeAlimentos):N2}");
+        $"TOTAL:       | {Alimento.CalcularPrecoTotal(listaDeAlimentos),6:N2}");
+}
+
+static void RemoverAlimentosDaLista(List<Alimento> listaDeAlimentos)
+{
+    string? remover = null;
+    while (string.IsNullOrWhiteSpace(remover))
+    {
+        Alimento.MostrarNomeAlimentos(listaDeAlimentos);
+        Console.WriteLine("\nQual o nome do alimento que deseja remover?");
+        remover = Console.ReadLine();
+    }
+
+    string? nomeRemocao = null;
+    foreach (Alimento alimento in listaDeAlimentos)
+    {
+        if (alimento.Nome == remover)
+        {
+            nomeRemocao = alimento.Nome;
+        }
+    }
+    if (nomeRemocao is null)
+    {
+        Console.WriteLine("Alimento inválido");
+    }
+    else
+    {
+        listaDeAlimentos.RemoveAll(alimento => alimento.Nome == nomeRemocao);
+        Console.WriteLine($"{nomeRemocao} removido com sucesso");
+    }
+}
+
+static void MostrarListas(List<Fruta> FrutasDisponiveis, List<Alimento> AlimentosDisponiveis)
+{
+    string? opcaoLista = null;
+    while (string.IsNullOrWhiteSpace(opcaoLista))
+    {
+        Console.WriteLine("Deseja ver lista de alimentos ou somente frutas?\n" +
+            "(1) - Alimentos\n" +
+            "(2) - Frutas");
+        opcaoLista = Console.ReadLine();
+        if (opcaoLista == "1")
+        {
+            Alimento.MostrarListaAlimentos(AlimentosDisponiveis);
+        }
+        else if(opcaoLista == "2")
+        {
+            Fruta.MostrarListaFrutas(FrutasDisponiveis);
+        }
+        else
+        {
+            Console.WriteLine("Opção inválida");
+        }
+    }
 }
