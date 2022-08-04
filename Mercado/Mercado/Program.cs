@@ -7,7 +7,7 @@ List<Alimento> AlimentosDisponiveis = new();
 while (true)
 {
     string? OpcaoMenu = MostrarMenuOpcoes();
-    if (OpcaoMenu == "999")
+    if (OpcaoMenu == "X")
     {
         Console.WriteLine("Obrigado e volte sempre!\n");
         break;
@@ -150,8 +150,8 @@ static string? MostrarMenuOpcoes()
             "(7) - REMOVER ALIMENTO\n" +
             "(8) - MOSTRAR LISTAS\n" +
             "(9) - CALCULAR VALOR DA COMPRA\n" +
-            "(999) - SAIR");
-    string? OpcaoMenu = Console.ReadLine();
+            "(X) - SAIR");
+    string? OpcaoMenu = Console.ReadLine()?.Trim().ToUpper();
     Console.Clear();
     return OpcaoMenu;
 }

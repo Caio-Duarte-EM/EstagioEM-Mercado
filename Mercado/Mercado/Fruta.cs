@@ -77,20 +77,12 @@ public class Fruta : Alimento
 
     public static List<Fruta> OrdenarListaFrutas(List<Fruta> listaDeFrutas, string ordem)
     {
-        List<Fruta> NovaListaFrutas = new();
-        if (ordem == "Nome")
+        return ordem switch
         {
-            NovaListaFrutas = listaDeFrutas.OrderBy(fruta => fruta.Nome).ToList();
-        }
-        else if(ordem == "Cor")
-        {
-            NovaListaFrutas = listaDeFrutas.OrderBy(fruta => fruta.Cor).ToList();
-        }
-        else
-        {
-            NovaListaFrutas = listaDeFrutas.OrderBy(fruta => fruta.Preco).ToList();
-        }
-        return NovaListaFrutas;
+            "Nome" => listaDeFrutas.OrderBy(fruta => fruta.Nome).ToList(),
+            "Cor" => listaDeFrutas.OrderBy(fruta => fruta.Cor).ToList(),
+            _ => listaDeFrutas.OrderBy(fruta => fruta.Preco).ToList()
+        };
     }
 
     public static void FiltarFrutasCor(List<Fruta> listaDeFrutas, string cor)
