@@ -343,13 +343,13 @@ static void AdicionarAlimentoNaLista(List<Alimento> listaDeAlimentos)
         Console.Write("Nome do alimento: ");
         nomeAlimento = Console.ReadLine();
     }
-    Console.Write("Data de validade do alimento: (DD/MM/AAAA) ");
-    string valor = Console.ReadLine()?.Replace("/", "").Replace(" ", "") ?? "";
-    var data = (Data)valor;
-    if (data == "01/01/2023" && valor != "01012023")
+    string valorData = "";
+    var data = (Data)valorData;
+    while (string.IsNullOrWhiteSpace(data))
     {
-        Console.WriteLine("Data inválida\n" +
-            $"Data Padrão: {data.Valor}");
+        Console.Write("Data de validade do alimento: (DD/MM/AAAA) ");
+        valorData = Console.ReadLine()?.Replace("/", "").Replace(" ", "") ?? "";
+        data = (Data)valorData;
     }
     double precoAlimento = 0;
     while (precoAlimento == 0)

@@ -5,7 +5,7 @@ public readonly struct Data
 
     private Data(string valorValido)
     {
-        Valor = ValorDataEhValido(valorValido) ? FormateData(valorValido) : "01/01/2023";
+        Valor = ValorDataEhValido(valorValido) ? FormateData(valorValido) : "";
     }
 
     public static implicit operator string(Data data) => data.Valor;

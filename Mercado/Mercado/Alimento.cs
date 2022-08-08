@@ -4,7 +4,6 @@ public class Alimento
 {
     public string? Nome { get; set; }
     public double Preco { get; set; }
-
     public Data DataDeValidade { get; set; }
     public static void MostrarTipo()
     {
@@ -20,10 +19,10 @@ public class Alimento
     public static void MostrarListaAlimentos(List<Alimento> listaDeAlimentos)
     {
         Console.Write("NOME         | PREÇO  | DATA DE VALIDADE\n" +
-            "-----------------------------------");
+            "----------------------------------------");
         foreach (Alimento alimento in listaDeAlimentos)
         {
-            Console.Write($"\n{alimento.Nome,-12} | {alimento.Preco,-6:N2} | {alimento.DataDeValidade.Valor,-9}");
+            Console.Write($"\n{alimento.Nome,-12} | {alimento.Preco,-6:N2} | {alimento.DataDeValidade.Valor,9}");
         }
     }
 
