@@ -22,7 +22,14 @@ public class Alimento
             "----------------------------------------");
         foreach (Alimento alimento in listaDeAlimentos)
         {
-            Console.Write($"\n{alimento.Nome,-12} | {alimento.Preco,-6:N2} | {alimento.DataDeValidade.Valor,9}");
+            if (alimento is Fruta)
+            {
+                Console.Write($"\n{alimento.Nome,-12} | {alimento.Preco,-6:N2} | --/--/----");
+            }
+            else
+            {
+                Console.Write($"\n{alimento.Nome,-12} | {alimento.Preco,-6:N2} | {alimento.DataDeValidade.Valor,9}");
+            }
         }
     }
 

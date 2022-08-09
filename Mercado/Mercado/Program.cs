@@ -344,12 +344,12 @@ static void AdicionarAlimentoNaLista(List<Alimento> listaDeAlimentos)
         nomeAlimento = Console.ReadLine();
     }
     string valorData = "";
-    var data = (Data)valorData;
-    while (string.IsNullOrWhiteSpace(data))
+    var dataValidadeAlimento = (Data)valorData;
+    while (string.IsNullOrWhiteSpace(dataValidadeAlimento))
     {
         Console.Write("Data de validade do alimento: (DD/MM/AAAA) ");
         valorData = Console.ReadLine()?.Replace("/", "").Replace(" ", "") ?? "";
-        data = (Data)valorData;
+        dataValidadeAlimento = (Data)valorData;
     }
     double precoAlimento = 0;
     while (precoAlimento == 0)
@@ -362,7 +362,7 @@ static void AdicionarAlimentoNaLista(List<Alimento> listaDeAlimentos)
             {
                 Nome = nomeAlimento,
                 Preco = precoAlimento,
-                DataDeValidade = data
+                DataDeValidade = dataValidadeAlimento
             };
             listaDeAlimentos.Add(novoAlimento);
             Console.WriteLine($"{nomeAlimento} adicionado com sucesso à lista");

@@ -3,17 +3,17 @@ public readonly struct Data
 {
     public readonly string Valor;
 
-    private Data(string valorValido)
+    private Data(string valorData)
     {
-        Valor = ValorDataEhValido(valorValido) ? FormateData(valorValido) : "";
+        Valor = ValorDataEhValido(valorData) ? FormateData(valorData) : "";
     }
 
     public static implicit operator string(Data data) => data.Valor;
-    public static explicit operator Data(string v) => new(v);
+    public static explicit operator Data(string valor) => new(valor);
 
     static bool ValorDataEhValido(string data)
     {
-        string[] mesCom30Dias = { "04", "06", "09", "11" };
+        string[] mesesCom30Dias = { "04", "06", "09", "11" };
         if (string.IsNullOrWhiteSpace(data))
         {
             return false;
@@ -48,7 +48,7 @@ public readonly struct Data
         {
             return false;
         }
-        else if (mesCom30Dias.Contains(mes) && dia == "31")
+        else if (mesesCom30Dias.Contains(mes) && dia == "31")
         {
             return false;
         }
